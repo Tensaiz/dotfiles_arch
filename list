@@ -4,7 +4,6 @@
 - grub
 	- nvidia config for grub
 	- theme for grub
-- systemd boot -> nvidia opt
 - pacman configure -> Color IloveCandy VerbozePkgLists ParallelDownloads
 - 
 
