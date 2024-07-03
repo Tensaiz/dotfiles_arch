@@ -180,7 +180,7 @@
         "format": "{}",
         "rotate": 0,
         "on-click": "",
-        "interval": 86400, // once every day
+        "interval": 3600, // once every day
         "tooltip": true,
         "signal": 20,
     },
