@@ -229,7 +229,12 @@ require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
   { 'xiyaowong/transparent.nvim', opts = {} },
-
+  {
+    'ggandor/leap.nvim',
+    config = function()
+      require('leap').add_default_mappings()
+    end,
+  },
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
@@ -435,7 +440,10 @@ require('lazy').setup({
 
       -- Shortcut for searching your Neovim configuration files
       vim.keymap.set('n', '<leader>sn', function()
-        builtin.find_files { cwd = vim.fn.stdpath 'config' }
+        require('telescope.builtin').find_files {
+          cwd = vim.fn.stdpath 'config',
+          follow = true, -- Enable symlink resolution
+        }
       end, { desc = '[S]earch [N]eovim files' })
     end,
   },
