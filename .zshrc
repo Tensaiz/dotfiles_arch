@@ -148,3 +148,7 @@ alias lll='exa --icons --tree -a -L 2'
 # Shell integration
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
+eval "$(register-python-argcomplete pipx)"
+
+# Created by `pipx` on 2024-12-08 12:09:26
+export PATH="$PATH:/home/ten/.local/bin"
