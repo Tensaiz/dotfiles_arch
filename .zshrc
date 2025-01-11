@@ -145,6 +145,8 @@ alias vim='nvim'
 alias ll='exa --icons --tree -a -L 1'
 alias lll='exa --icons --tree -a -L 2'
 
+source ~/.dotfiles/lib/zsh-autoenv/autoenv.zsh
+
 # Shell integration
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
