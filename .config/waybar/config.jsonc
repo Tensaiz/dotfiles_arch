@@ -13,7 +13,7 @@
 
     "modules-left": ["custom/padd","custom/l_end","custom/power","custom/cliphist","custom/wallchange","custom/r_end","custom/l_end", "cpu", "memory", "custom/gpu", "custom/r_end", "custom/padd"],
     "modules-center": ["custom/padd","custom/l_end","hyprland/workspaces","hyprland/window","custom/r_end","custom/padd"],
-    "modules-right": ["custom/padd","custom/l_end","network","pulseaudio","pulseaudio#microphone","custom/updates","custom/r_end","custom/l_end","tray","battery","custom/r_end","custom/l_end","clock","custom/r_end","custom/padd"],
+    "modules-right": ["custom/padd","custom/l_end","network","pulseaudio","pulseaudio#microphone","custom/updates","custom/r_end","custom/l_end","tray","battery","custom/battery_eta","custom/r_end","custom/l_end","clock","custom/r_end","custom/padd"],
 
     "cpu": {
         "interval": 10,
@@ -202,7 +202,7 @@
             "warning": 30,
             "critical": 20
         },
-        "format": "{icon} {capacity}%",
+        "format": "{icon} {capacity}% {}",
         "rotate": 0,
         "format-charging": " {capacity}%",
         "format-plugged": " {capacity}%",
@@ -306,6 +306,12 @@
         "format": "  ",
         "interval" : "once",
         "tooltip": false
+    },
+
+    "custom/battery_eta": {
+        "exec": "~/share/bin/battery_eta.sh",
+        "interval": 30,
+        "format": "{}"
     }
 
 }
