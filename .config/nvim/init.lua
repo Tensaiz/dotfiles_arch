@@ -234,7 +234,7 @@ require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
   {
-    'ggandor/leap.nvim',
+    'https://codeberg.org/andyg/leap.nvim',
     config = function()
       require('leap').create_default_mappings()
     end,
@@ -519,7 +519,7 @@ require('lazy').setup({
           find_files = {
             hidden = true,
             follow = true,
-          }
+          },
         },
         extensions = {
           ['ui-select'] = {
