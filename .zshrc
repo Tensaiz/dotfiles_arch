@@ -113,7 +113,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+ [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Keybindings
 bindkey '^p' history-search-backward
@@ -145,7 +145,8 @@ alias vim='nvim'
 alias ll='exa --icons --tree -a -L 1'
 alias lll='exa --icons --tree -a -L 2'
 
-source ~/.dotfiles/lib/zsh-autoenv/autoenv.zsh
+# Missing
+### source ~/.dotfiles/lib/zsh-autoenv/autoenv.zsh
 
 # Shell integration
 eval "$(fzf --zsh)"

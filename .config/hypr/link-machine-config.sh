@@ -8,7 +8,7 @@ case "$HOST" in
   tentop|hp-laptop)
     MACHINE="laptop"
     ;;
-  desktop|arch-desktop)
+  enza-pc|desktop)
     MACHINE="desktop"
     ;;
   *)
