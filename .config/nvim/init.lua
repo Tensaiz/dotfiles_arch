@@ -160,6 +160,10 @@ vim.opt.scrolloff = 10
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 
+-- Obsidian config for MD
+vim.opt.conceallevel = 2
+vim.opt.concealcursor = 'nc'
+
 vim.keymap.set('i', 'jk', '<Esc>')
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -194,6 +198,77 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+--------------------------------------------------
+-- OBSIDIAN
+--------------------------------------------------
+
+local map = vim.keymap.set
+
+map('n', '<leader>od', '<cmd>ObsidianToday<CR>', { desc = '[O]bsidian [D]aily' })
+
+map('n', '<leader>of', '<cmd>ObsidianQuickSwitch<CR>', { desc = '[O]bsidian [F]ind note' })
+
+map('n', '<leader>on', '<cmd>ObsidianNew<CR>', { desc = '[O]bsidian [N]ew generic note' })
+
+map('n', '<leader>ob', '<cmd>ObsidianBacklinks<CR>', { desc = '[O]bsidian [B]acklinks' })
+
+map('n', '<leader>ol', '<cmd>ObsidianLinks<CR>', { desc = '[O]bsidian Outgoing [L]inks' })
+
+map('n', '<leader>os', '<cmd>ObsidianSearch<CR>', { desc = '[O]bsidian [S]earch vault' })
+
+--------------------------------------------------
+-- TEMPLATES
+--------------------------------------------------
+
+map('n', '<leader>otk', '<cmd>ObsidianTemplate knowledge<CR>', { desc = 'Knowledge template' })
+
+map('n', '<leader>otp', '<cmd>ObsidianTemplate project<CR>', { desc = 'Project template' })
+
+map('n', '<leader>otv', '<cmd>ObsidianTemplate video<CR>', { desc = 'Video template' })
+
+map('n', '<leader>otj', '<cmd>ObsidianTemplate journal<CR>', { desc = 'Journal template' })
+
+map('n', '<leader>ote', '<cmd>ObsidianTemplate entity<CR>', { desc = 'Entity template' })
+
+--------------------------------------------------
+-- FAST CREATION
+--------------------------------------------------
+local function new_entity()
+  vim.cmd 'ObsidianNew entity/'
+  vim.defer_fn(function()
+    vim.cmd 'ObsidianTemplate entity'
+  end, 100)
+end
+
+local function new_project()
+  vim.cmd 'ObsidianNew projects/'
+  vim.defer_fn(function()
+    vim.cmd 'ObsidianTemplate project'
+  end, 100)
+end
+
+local function new_knowledge()
+  vim.cmd 'ObsidianNew knowledge/'
+  vim.defer_fn(function()
+    vim.cmd 'ObsidianTemplate knowledge'
+  end, 100)
+end
+
+local function new_video()
+  vim.cmd 'ObsidianNew media/'
+  vim.defer_fn(function()
+    vim.cmd 'ObsidianTemplate video'
+  end, 100)
+end
+
+map('n', '<leader>onp', new_project, { desc = 'New Project' })
+
+map('n', '<leader>onk', new_knowledge, { desc = 'New Knowledge' })
+
+map('n', '<leader>onv', new_video, { desc = 'New Video' })
+
+map('n', '<leader>one', new_entity, { desc = 'New Entity' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -234,10 +309,88 @@ require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
   {
-    'https://codeberg.org/andyg/leap.nvim',
+    'ggandor/leap.nvim',
     config = function()
       require('leap').create_default_mappings()
     end,
+  },
+  -- Obsidian
+  {
+    'epwalsh/obsidian.nvim',
+    version = '*',
+    lazy = true,
+    ft = 'markdown',
+
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+
+    opts = {
+      ui = { enable = false },
+      workspaces = {
+        {
+          name = 'personal',
+          path = '~/Documents/Obsidian Vault',
+        },
+      },
+      notes_subdir = 'knowledge',
+      new_notes_location = 'current_dir',
+
+      daily_notes = {
+        folder = 'daily',
+        date_format = '%d-%m-%Y',
+        alias_format = '%A %d-%m-%Y',
+        template = 'daily',
+      },
+
+      completion = {
+        nvim_cmp = true,
+        min_chars = 2,
+      },
+
+      templates = {
+        folder = 'templates',
+        date_format = '%d-%m-%Y',
+        time_format = '%H:%M',
+        substitutions = {},
+      },
+
+      preferred_link_style = 'wiki',
+
+      note_id_func = function(title)
+        if title ~= nil then
+          return title
+        end
+
+        return vim.fn.input 'Note title: '
+      end,
+
+      disable_frontmatter = true,
+
+      mappings = {
+
+        ['gf'] = {
+          action = function()
+            return require('obsidian').util.gf_passthrough()
+          end,
+          opts = { noremap = false, expr = true, buffer = true },
+        },
+
+        ['<CR>'] = {
+          action = function()
+            return require('obsidian').util.smart_action()
+          end,
+          opts = { buffer = true, expr = true },
+        },
+
+        ['<leader>ch'] = {
+          action = function()
+            return require('obsidian').util.toggle_checkbox()
+          end,
+          opts = { buffer = true },
+        },
+      },
+    },
   },
   { 'xiyaowong/transparent.nvim', opts = {} },
   { 'akinsho/git-conflict.nvim', version = '*', config = true },
@@ -449,6 +602,8 @@ require('lazy').setup({
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>o', group = '[O]bsidian' },
+        { '<leader>ot', group = '[O]bsidian [T]emplates' },
       },
     },
   },
