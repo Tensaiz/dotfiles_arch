@@ -1,0 +1,105 @@
+# Test 2
+[bar.default]
+background_opacity = 0.75
+center = [ "workspaces", "active_window" ]
+end = [
+    "weather",
+    "spacer_right",
+    "tray",
+    "spacer_right",
+    "network",
+    "bluetooth",
+    "volume",
+    "brightness",
+    "spacer_right",
+    "clock",
+    "date",
+    "notifications"
+]
+margin_edge = 0
+margin_ends = 0
+start = [
+    "session",
+    "launcher",
+    "control-center",
+    "clipboard",
+    "wallpaper",
+    "battery",
+    "spacer_left",
+    "cpu",
+    "ram",
+    "spacer_left",
+    "media"
+]
+
+[calendar]
+enabled = true
+
+    [calendar.account.matt_personal]
+    type = "google"
+
+[location]
+address = "Nieuwegein, Netherlands"
+
+[lockscreen_widgets]
+enabled = false
+schema_version = 2
+widget_order = [ "lockscreen-login-box@eDP-1" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 800.0
+    cy = 777.0
+    output = "eDP-1"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        input_opacity = 1.0
+        input_radius = 6.0
+        show_login_button = true
+
+[theme]
+builtin = "Catppuccin"
+mode = "dark"
+source = "builtin"
+wallpaper_scheme = "m3-content"
+
+[wallpaper]
+directory = "/home/ten/wallpapers"
+transition_on_startup = true
+
+    [wallpaper.automation]
+    enabled = true
+
+    [wallpaper.default]
+    path = "/home/ten/wallpapers/switch_swirl.jpg"
+
+    [wallpaper.last]
+    path = "/home/ten/wallpapers/switch_swirl.jpg"
+
+    [wallpaper.monitors.eDP-1]
+    path = "/home/ten/wallpapers/switch_swirl.jpg"
+
+[widget.network]
+show_label = false
+
+[widget.spacer_left]
+length = 50
+type = "spacer"
+
+[widget.spacer_right]
+length = 75
+type = "spacer"
+
+[widget.sysmon]
+stat = "ram_used"
