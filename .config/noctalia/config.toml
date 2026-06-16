@@ -1,4 +1,3 @@
-# Test 2
 [bar.default]
 background_opacity = 0.75
 center = [ "workspaces", "active_window" ]
